@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+        
+        </style>
+        <title>Pdf</title>
+    </head>
+    <body>
+
+        <img src="img/Logo.PNG" alt="logo">
+
+        <div class="container-fluid">
+
+        <table class="table text-center">
+            <thead >
+                <tr>
+                    <th scope="col"><h4>Facturé à :</h4></th>
+                    <th scope="col"><h4>Facturé le : </h4></th>
+                    <th scope="col"><h4>Facturé par :</h4></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        <p>{{ paniers.user.nom }}
+                            {{paniers.user.prenom}}
+                            <br>
+                            {{paniers.user.adresse}}
+                            <br>
+                            {{paniers.user.codepostal}},
+                            {{paniers.user.ville}}
+                        </p>
+                    </th>
+                    <td>
+                        <p>
+                          05/05/25
+                        </p>
+                    </td>                    
+                    <td>
+                        <p>Bon Temps Roulé
+                            <br>
+                            17 / 19 rue du Colonel Driant
+                            <br>
+                            10000, Troyes
+                        </p>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total = 0 %}
+                    {% for produitPanier in produitPaniers %}
+                    {% set total = produitPanier.prix * produitPanier.quantite %}
+                        <tr>
+                            <td>{{ produitPanier.quantite }}</td>
+                            <th scope="row">{{ produitPanier.produit.nom }}</th>
+                            <td>{{ produitPanier.prix }} €</td>
+                            <td>{{ total }} €</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right">Montant TTC : {{ paniers.montantTotal }} €</th>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </body>
+</html>

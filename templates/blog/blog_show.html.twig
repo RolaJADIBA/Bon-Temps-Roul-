@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Blog - {{ article.titre }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>{{ article.titre }}</h1>
+
+        {# <div class="row"> #}
+            <div class="d-flex justify-content-center">
+                <img class="w-md-25" src="{{ asset('img/articles/' ~ article.image)}}" alt="{{ article.titre }}">
+            </div>
+
+            <div class="text-break">{{ article.contenu|raw }}</div>
+        {# </div> #}
+
+            {# {{ article.description }} #}
+
+        <a class="btn btn-light" href="{{ path('blog') }}">Retour au Blog</a>
+
+    </div>
+
+{% endblock %}

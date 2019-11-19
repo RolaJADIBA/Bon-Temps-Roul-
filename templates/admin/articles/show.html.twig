@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Articles</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ article.id }}</td>
+                </tr>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ article.titre }}</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td><img class="w-50" src="{{ asset('img/articles/' ~ article.image)}}" alt="{{ article.titre }}"></td>
+                <tr>
+                    <th>Contenu</th>
+                    <td>{{ article.contenu|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ article.description }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-light" href="{{ path('articles_index') }}">Retour à la liste des Articles</a>
+
+        <a class="btn btn-primary" href="{{ path('articles_edit', {'id': article.id}) }}">Modifier</a>
+
+        <a class="btn btn-danger" href="{{ path('articles_delete', {'id': article.id}) }}">Supprimer</a>
+
+    </div>
+
+{% endblock %}

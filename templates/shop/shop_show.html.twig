@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog - {{ produit.nom }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>{{ produit.nom }}</h1>
+
+        {# <div class="row"> #}
+            <div class="d-flex justify-content-center">
+                <img src="{{ asset('img/articles/' ~ produit.image)}}" alt="{{ produit.image }}">
+            </div>
+
+            <div>{{ produit.description }}</div>
+        {# </div> #}
+
+            {# {{ article.description }} #}
+
+        <a class="btn btn-light" href="{{ path('shop_show') }}">Retour à la boutique</a>
+
+    </div>
+
+{% endblock %}

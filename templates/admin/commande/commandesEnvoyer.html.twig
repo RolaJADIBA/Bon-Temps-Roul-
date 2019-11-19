@@ -1,0 +1,47 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Liste des Commandes
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="table-responsive">
+
+
+            <h1>Liste des Commandes Terminées</h1>
+            <table class="table text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Numéro de commande</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for panier in paniers %}
+                        {% if panier.statut == 3 %}
+                            <tr>
+                                <th scope="row">{{ panier.id }}</th>
+                                <td>{{ panier.user.nom }}
+                                    {{ panier.user.prenom }}</td>
+                                <td>
+                                    <span class="badge badge-pill badge-success">Colis livré</span> 
+                                </td>
+                                <td>
+                                    <a href="{{ path('voirCommande', {'id': panier.id})}}">Voir la Commande</a>
+                                    {# |
+                                    <a href="{{ path('envoieCommande', {'id': panier.id} ) }}">Envoyé</a> #}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
+

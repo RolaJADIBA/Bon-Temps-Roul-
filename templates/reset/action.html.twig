@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+
+
+<section class="container">
+
+
+{% for alert in app.flashes('reset-incorrect') %}
+    <div class="alert alert-danger" role="alert">
+         {{ alert }}
+    </div>
+
+{% endfor %}
+
+{% for alert in app.flashes('reset-success') %}
+    <div class="alert alert-success" role="alert">
+         {{ alert }}
+    </div>
+
+{% endfor %}
+
+{% if resultats != null %}
+    <form method="post">
+        <h1 class="h3 mb-3 font-weight-normal">Mot de passe oublié</h1>
+        <label class="sr-only" for="password">Entrer un nouveau mot de passe</label>
+        <input
+        class="form-control rounded-pill mb-3" id="password" name="password" placeholder="password" required type="password">
+        {# <input type="hidden" name="token" value="{{ token }}"> #}
+
+        <button class="btn btn-primary btn-block" type="submit">
+            Changer mon mot de passe
+        </button>
+    </form>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Erreur</h4>
+        <p>
+            Une erreur s'est produit, aucun token n'a été détecté sur ce compte utilisateur.
+        </p>
+        <hr>
+        <p class="mb-0">
+        Contactez l'administrateur du site.</p>
+    </div>
+{% endif %}
+
+            
+</section>
+
+{% endblock %}

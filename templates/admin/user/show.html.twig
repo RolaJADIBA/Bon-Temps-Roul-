@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des Utilisateurs - Bon Temps Roulé{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h2 class="text-center">Nom : {{ user.nom }}<h2>
+        <h2 class="text-center">Prénom : {{ user.prenom }}</h2>
+        <div id="card_user" class="card" style="width: 35rem;">
+
+            <div class="card-header">
+                Email:
+                {{ user.email }}
+            </div>
+            
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Adrsse:
+                    {{ user.adresse}}</li>
+                <li class="list-group-item">Ville:
+                    {{ user.ville }}</li>
+                <li class="list-group-item">Code_Postal:
+                    {{ user.codepostal }}</li>
+                <li class="list-group-item">tel:
+                    {{ user.tel }}</li>
+
+            </ul>
+        </div>
+
+        <a class="btn btn-light" href="{{ path('user_admin') }}">Retour à la liste des Users</a>
+    </div>
+
+{% endblock %}

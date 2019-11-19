@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'Article{% endblock %}
+
+{% block body %}
+
+    <section class="container">
+        
+        <h1>Modifier l'Article</h1>
+            
+            {{ form_start(form) }}
+        
+        <div class="row">
+            
+            <div class="col-md-8 p-3">
+                {{ form_row(form.titre,{ 'attr': { 'class':'form-control'} }) }}
+                {{ form_row(form.description, { 'attr': { 'class':'form-control'} }) }}
+                {{ form_row(form.contenu, { 'attr': { 'class':'form-control'} }) }}
+                <p>Aperçu de l'image :</p>
+                <img class="w-25" src="{{ asset('img/articles/' ~ article.image)}}" alt="{{ article.titre }}">
+
+            </div>
+
+            <div class="col-md-4 p-3 border-0 ">
+                {{ form_row(form.image, { 'attr': { 'class':'form-control'} }) }}
+                <button class="btn btn-primary btn-block btn-sm mt-3">Modifier</button>
+                <a href="{{ path('articles_index') }}" class="btn btn-outline-secondary btn-block btn-sm mt-3">Retour à la liste des articles</a>
+                <a href="{{ path('articles_delete', {'id': article.id}) }}" class="btn btn-danger btn-block btn-sm mt-3">Supprimer</a>
+            </div>
+            </div>
+            {{ form_end(form) }}
+        </section>
+
+    {# {{ include('admin/articles/_delete_form.html.twig') }} #}
+{% endblock %}

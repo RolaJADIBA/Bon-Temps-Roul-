@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Paramètres - Bon Temps Roulé{% endblock %}
+
+{% block body %}
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="list-group">
+            <a href="{{ path ('account_edit_info_connexion') }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Informations de connexion </h5>
+                </div>
+                <p class="mb-1">
+                    Modifier ton adresse e-mail
+                </p>
+            </a>
+            <a href="{{ path ('account_edit_info_security') }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Sécurité</h5>
+                </div>
+                <p class="mb-1">
+                    Modifie ton mot de passe
+                </p>
+            </a>
+            <a href="{{ path ('account_edit_info_personnel') }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Informations personnelles</h5>
+                </div>
+                <p class="mb-1">
+                Modifie ton nom, ton adresse, ta ville, ton code postal etc...
+                </p>
+            </a>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+            {{ include('user/menu.html.twig') }}
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}

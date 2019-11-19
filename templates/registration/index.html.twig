@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<main class="container">
+
+    <div class="text-center">
+        <img src="{{ asset('img/giphy.gif') }}" alt="">
+        <h1 class="mb-3 font-weight-normal">Inscription</h1>
+    </div>
+    
+    {{ form_start(registrationForm, {'attr':{'class':'bg-light p-4 border-0 shadow'}}) }}
+        {{ form_row(registrationForm.nom,{ 'attr': { 'class':'form-control'} }) }}
+        {{ form_row(registrationForm.prenom, { 'attr': { 'class':'form-control'} }) }}
+        {{ form_row(registrationForm.adresse, { 'attr': { 'class':'form-control'} }) }}
+        {{ form_row(registrationForm.ville, { 'attr': { 'class':'form-control'} }) }}
+        {{ form_row(registrationForm.code_postal, { 'attr': { 'class':'form-control'} }) }}
+        {{ form_row(registrationForm.tel, { 'attr': { 'class':'form-control'} }) }}
+        {{ form_row(registrationForm.email, { 'attr': { 'class':'form-control'} }) }}
+        {{ form_row(registrationForm.plainPassword, { 'attr': { 'class':'form-control'} }) }}
+
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button class="btn btn-primary btn-block rounded-pill">Inscription</button>
+        <a href="{{ path('app_login') }}" class="btn btn-info btn-block rounded-pill">J'ai déjà un compte</a>
+
+    {{ form_end(registrationForm) }}
+</main>
+
+{% endblock %}

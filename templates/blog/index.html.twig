@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Blog - Bon Temps Roulé{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        {% for article in articles %}
+
+            <div class="card p-4 mr-md-2 col-md-5 mb-2 border-0 shadow" data-target="#exampleModalCenter" data-toggle="modal">
+                <h3 class="text-center">{{ article.titre }}</h3>
+                <hr>
+                <div class="d-flex justify-content-center">
+                    <img class="w-75" src="{{ asset('img/articles/' ~ article.image)}}" alt="{{ article.titre }}">
+                </div>
+                <div class="card-body text-center">
+                    <p class="text-left">{{ article.description }}</p>
+                    <a class="mb-n4 btn btn-sm btn-outline-primary" href="{{ path('blog_show', {'id': article.id}) }}">Voir plus</a>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

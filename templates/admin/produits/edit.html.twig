@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Produits{% endblock %}
+
+{% block body %}
+
+    {# {{ include('admin/produits/_form.html.twig', {'button_label': 'Update'}) }} #}
+    <section class="container">
+        <h1>Modifier Produits</h1>
+            {{ form_start(form) }}
+        <div class="row">
+
+            <div class="col-md-8 p-3">
+                {{ form_row(form.nom,{ 'attr': { 'class':'form-control'} }) }}
+                {{ form_row(form.description, { 'attr': { 'class':'form-control'} }) }}
+                {{ form_row(form.prix, { 'attr': { 'class':'form-control'} }) }}
+                <p>Aperçu de l'image :
+                    {% for image in produit.images %}
+                        <img class="img-fluid w-25" src="{{ asset('img/produits/' ~ image)}}" alt="{{ produit.nom }}"></td>
+                    {% endfor %}
+
+                </p>
+
+            </div>
+
+            <div class="col-md-4 p-3 border-0 ">
+                {{ form_row(form.images, { 'attr': { 'class':'form-control'} }) }}
+                <button class="btn btn-primary btn-block btn-sm mt-3">Modifier</button>
+                <a href="{{ path('produits_index') }}" class="btn btn-outline-secondary btn-block btn-sm mt-3">Retour à la liste des produits</a>
+                <a href="{{ path('produits_delete', {'id': produit.id}) }}" class="btn btn-danger btn-block btn-sm mt-3">Supprimer</a>
+            </div>
+            </div>
+            {{ form_end(form) }}
+        </section>
+
+                {# {{ include('admin/produits/_delete_form.html.twig') }} #}
+
+
+    {# <a href="{{ path('produits_index') }}">back to list</a> #}
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Users index{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-10">
+                <h1>Liste des users ({{ users|length }})</h1>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.prenom }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{{ path('user_show', {'id': user.id}) }}">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">Aucun user .</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

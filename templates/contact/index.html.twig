@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-Moi - Bon Temps Roulé{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="text-center">
+            <img src="{{ asset('img/giphy.gif') }}" alt="">
+            <h1 class="h3 mb-3 font-weight-normal">Contactez-moi</h1>
+        </div>
+
+        <div class="bg-light p-3 border-0 shadow">
+            {% for message in app.flashes('success1') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.nom,{ 'attr': { 'class':'form-control rounded-pill'} }) }}
+                </div>
+                <div class="col-md-6 ">
+                    {{ form_row(form.prenom, { 'attr': { 'class':'form-control rounded-pill'} }) }}
+                </div>
+            </div>
+            {{ form_row(form.email, { 'attr': { 'class':'form-control rounded-pill'} }) }}
+            {{ form_row(form.objet, { 'attr': { 'class':'form-control rounded-pill'} }) }}
+            {{ form_row(form.message, { 'attr': { 'class':'form-control rounded-pill'} }) }}
+
+            <button class="btn btn-primary mt-2 rounded-pill" type="submit">Envoyer</button>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}

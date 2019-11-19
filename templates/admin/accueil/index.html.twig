@@ -1,0 +1,78 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Accueil Administrateur - Bon Temps Roulé{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center mb-5 border-bottom">Accueil</h1>
+
+    <h2 class="text-center mb-5">Les Commandes</h2>
+        <div class="row">
+            <div class="col-md text-center">
+                <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        Toutes les commandes
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-primary" href="{{ path ('commande') }}">Voir la liste</a> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md text-center">
+                <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        Commandes en cours
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-primary" href="{{ path('commandesEnCours') }}">Voir la liste</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md text-center">
+                <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        Commandes terminées
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-primary" href="{{ path('commandesEnvoyer') }}">Voir la liste</a>
+                    </div>
+                </div>  
+            </div>
+    </div>
+    <h2 class="text-center mt-5 mb-5">Les Statistiques</h2>
+        <div class="row">
+            <div class="col-md text-center">
+                <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        Les commandes
+                    </div>
+                    <div class="card-body">
+                        <p>Diagramme</p>
+                        <a class="btn btn-primary" href="#">Voir la liste</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md text-center">
+                <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        Fréquentation du site
+                    </div>
+                    <div class="card-body">
+                        <p>Diagramme</p>
+                        <a class="btn btn-primary" href="#">Voir la liste</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md text-center">
+                <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">
+                        Nombre de vues
+                    </div>
+                    <div class="card-body">
+                       <p>Nombre de vues</p>
+                    </div>
+                </div>  
+            </div>
+    </div>
+</div>
+{% endblock %}

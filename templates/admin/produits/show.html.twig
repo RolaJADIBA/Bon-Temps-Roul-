@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Produits</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ produits.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ produits.nom }}</td>
+                </tr>
+
+                {% for image in produits.images %}
+                    <tr>
+                    <th>Image</th>
+                    <td><img class="img-fluid w-50" src="{{ asset('img/produits/' ~ image)}}" alt="{{ produits.nom }}"></td>
+                    </tr>
+                {% endfor %}
+
+                <tr>
+                    <th>Description</th>
+                    <td>{{ produits.description }}</td>
+                </tr>
+                <tr>
+                    <th>Prix</th>
+                    <td>{{ produits.prix }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-light" href="{{ path('produits_index') }}">Retour à la liste des Produits</a>
+
+        <a class="btn btn-primary" href="{{ path('produits_edit', {'id': produits.id}) }}">Modifier</a>
+
+        <a class="btn btn-danger" href="{{ path('produits_delete', {'id': produits.id}) }}">Supprimer</a>
+
+    </div>
+{% endblock %}

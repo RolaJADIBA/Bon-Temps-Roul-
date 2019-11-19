@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commande{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Commande n° {{panier.id}}</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table mt-3 text-center">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Prix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for produitPanier in produitPaniers %}
+                        <tr>
+                            <td>{{produitPanier.produit.nom}}</td>
+                            <td>{{produitPanier.quantite}}</td>
+                            <td>{{produitPanier.prix}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="col-12">Montant total : {{panier.montanttotal}}€ </div>
+            </div>
+
+            <div class="col-md-4 mt-3 mt-sm-0">
+            <div class="bg-light border p-3 text-center">
+                <h6 class="p-3">Statut de la commande</h6>
+                    <hr>
+                {% if panier.statut == 0 %}
+                     <p>   <span class="border border-primary p-2">En attente</sp>  </p>
+                {% endif %}
+                    {% if panier.statut == 1 %}
+                     <p>  <span class="border border-warning p-2">En préparation</span> </p>
+                {% endif %}
+                    {% if panier.statut == 2 %}
+                      <p>  <span class="border border-info p-2">En cours de livraison</span> </p>
+                {% endif %}
+                {% if panier.statut == 3 %}
+                   <p> <span class="border border-success p-2">Colis livré</span> </p>
+                {% endif %}
+                {% if panier.statut == 4 %}
+                  <p>  <span class="border border-danger p-2">Commande annulée</span> </p>
+                {% endif %}
+                <hr>
+                    <a href="{{path ('genererFactureClients', {'id': panier.id}) }}" class="btn btn-outline-dark btn-sm btn-block">Télécharger la facture</a>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+
+
+{% endblock %}
+
+{# 
+    0 = en attente
+    1 = en cours
+    2 = envoyé
+    3 = reçu
+    4 = annuler 
+#}

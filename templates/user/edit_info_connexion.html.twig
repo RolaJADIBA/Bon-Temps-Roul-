@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Paramètres - Bon Temps Roulé{% endblock %}
+
+{% block body %}
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+        {{ form_start(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, { 'attr': { 'class':'form-control'} }) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-5">Mettre à jour mes informations</button>
+
+        {{ form_end(form) }}
+            
+        </div>
+        <div class="col-md-4">
+            {{ include('user/menu.html.twig') }}
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

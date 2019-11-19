@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Panier{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+            {% if app.session.get('panier')|length > 0 %}
+            
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">action</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Quantité</th>
+                        {# <th scope="col">Total</th> #}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total = 0 %}
+                    {% set produit_id = "" %}
+                    {% for produit in produit_panier %}
+                        {% set produit_id = produit.id %}
+                        <tr>
+                            <th>
+                                <form action="{{ path('deleteProduitPanier', {'id': produit.id}) }}" method="POST">
+                                    <input type="hidden" name="delete" value="{{ produit.id }}">
+                                    <button class="btn btn-link text-danger" type="submit">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </th>
+                            <th scope="row">{{ produit.nom }}</th>
+                            <td>{{ produit.prix }} €</td>
+                                {% set sommes = 0 %}
+                            <td>
+                                <form action="{{ path('ajoutPanier', {'id': produit.id}) }}" method="POST">
+                                    <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/,'')" class="form-control col-md-6" name="quantite" value="{{ panier[produit.id] }}" min="1" onchange="this.form.submit()">
+                                </form>
+                            </td>
+                            {% set sommes = produit.prix *  panier[produit.id] %}
+                        </tr>
+                        {% set total = sommes + total %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {# </div> #}
+        <section class="row">
+            <div class='col'>
+                <p>Total : {{ total }} €</p>
+            </div>
+            <div class='col'>
+                <button class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">Confirmer le panier</button>
+            </div>
+        </section>
+
+    
+
+    <!-- Modal -->
+    <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="exampleModalCenter" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Procédure de paiement</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if app.user %}
+
+                        <script src="https://js.stripe.com/v3/"></script>
+                        <form action="{{ path('stripe') }}" id="payment-form" method="post">
+                            <div class="form-row">
+                                <label for="card-element">
+                                    Carte Banquaire
+                                </label>
+                                <div
+                                    class="w-100" id="card-element"><!-- A Stripe Element will be inserted here. -->
+                                </div>
+
+                                <!-- Used to display form errors. -->
+                                <div id="card-errors" role="alert"></div>
+                            </div>
+                            <input type="hidden" name="total" value="{{ total }}">
+
+                        {% else %}
+
+                            <div class="alert alert-danger">Vous devez être connecté pour commander</div>
+
+                        {% endif %}
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        {% if app.user %}
+                            <button class="btn btn-secondary" data-dismiss="modal" type="button">Annuler</button>
+                            <button class="btn btn-primary">Valider le paiement</button>
+                        </form>
+                    {% else %}
+                        <a class='btn btn-primary' href="{{ path('app_login') }}">Connexion</a>
+                        <a class='btn btn-primary' href="{{ path('app_logout') }}">S'inscrire</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% else %}
+        <div class="alert alert-warning">Votre panier est vide.</div>
+        <div class="text-center">
+            <img class="h-25 w-25" src="https://media0.giphy.com/media/A1HDOCf2qz84OU5NW7/source.gif">
+        </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
+        {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            var stripe = Stripe('pk_test_2BOkTIn2NWJZ5s31stpAc4gJ00qf8aBibW');
+            var elements = stripe.elements();
+            // Custom styling can be passed to options when creating an Element.
+            // (Note that this demo uses a wider set of styles than the guide below.)
+            var style = {
+                base: {
+                    color: '#32325d',
+                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                    fontSmoothing: 'antialiased',
+                    fontSize: '16px',
+                    '::placeholder': {
+                    color: '#aab7c4'
+                    }
+                },
+                invalid: {
+                    color: '#fa755a',
+                    iconColor: '#fa755a'
+                }
+            };
+
+            // Create an instance of the card Element.
+            var card = elements.create('card', {style: style});
+
+            // Add an instance of the card Element into the `card-element` <div>.
+            card.mount('#card-element');
+
+            // Handle real-time validation errors from the card Element.
+            card.addEventListener('change', function(event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+            });
+
+            // Handle form submission.
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+                } else {
+                // Send the token to your server.
+                stripeTokenHandler(result.token);
+                }
+            });
+            });
+
+            // Submit the form with the token ID.
+            function stripeTokenHandler(token) {
+            // Insert the token ID into the form so it gets submitted to the server
+            var form = document.getElementById('payment-form');
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
+
+            // Submit the form
+            form.submit();
+            }
+        </script>
+        {% endblock %}
